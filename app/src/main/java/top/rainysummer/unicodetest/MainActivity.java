@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -48,41 +49,82 @@ public class MainActivity extends AppCompatActivity {
         runOnUiThread(() -> {
             TextView textView = MainActivity.this.findViewById(R.id.textView);
             TextView textView3 = MainActivity.this.findViewById(R.id.textView3);
-            textView.setText("");
-            textView3.setText("");
+            textView.setVisibility(View.GONE);
+            textView3.setVisibility(View.GONE);
         });
+        checkVersion();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void checkVersion() {
+        runOnUiThread(() -> {
+            String version = "";
+            if (validEmoji("&#x1F62E&#x200D&#x1F4A8")) {
+                version = "13.1";
+            } else if (validEmoji("&#x1F972")) {
+                version = "13.0";
+            } else if (validEmoji("&#x1F9D1&#x200D&#x1F9B0")) {
+                version = "12.1";
+            } else if (validEmoji("&#x1F971")) {
+                version = "12.0";
+            } else if (validEmoji("&#x1F970")) {
+                version = "11.0";
+            } else if (validEmoji("&#x1F929")) {
+                version = "5.0";
+            } else if (validEmoji("&#x1F471")) {
+                version = "4.0";
+            } else if (validEmoji("&#x1F923")) {
+                version = "3.0";
+            } else if (validEmoji("&#x1F441")) {
+                version = "2.0";
+            } else if (validEmoji("&#x1F600")) {
+                version = "2.0";
+            }
+            TextView textView4 = MainActivity.this.findViewById(R.id.textView4);
+            textView4.setVisibility(View.VISIBLE);
+            textView4.setText("≈ Emoji " + version);
+        });
+    }
+
+    private boolean validEmoji(String unicode) {
+        if (unicode.equals("&#x1F1F9&#x1F1FC")) {
+            return true;
+        }
+        Paint paint = new Paint();
+        boolean hasGlyph = paint.hasGlyph(String.valueOf(Html.fromHtml(unicode)));
+        if (hasGlyph) {
+            if (unicode.contains("&#x200D&#x")) {
+                String strN = unicode.replaceAll("&#x200D&#x", "&#x");
+                String strN2 = String.valueOf(Html.fromHtml(strN));
+                String strN1 = String.valueOf(Html.fromHtml(unicode));
+                int nL = strN1.length();
+                int oL = strN2.length();
+                //noinspection RedundantIfStatement
+                if (nL != oL) {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     @SuppressLint("SetTextI18n")
     private void updateUI(String line) {
         numMax++;
         String formatU = MainActivity.this.formatUnicode(line);
-        if (formatU.equals("&#x1F1F9&#x1F1FC")) {
-            numValid++;
-            return;
-        }
-        Paint paint = new Paint();
-        boolean hasGlyph = paint.hasGlyph(String.valueOf(Html.fromHtml(formatU)));
+
         TextView textView2 = MainActivity.this.findViewById(R.id.textView2);
         TextView textView = MainActivity.this.findViewById(R.id.textView);
         TextView textView3 = MainActivity.this.findViewById(R.id.textView3);
         TextView textView5 = MainActivity.this.findViewById(R.id.textView5);
         textView.setText(Html.fromHtml(formatU));
-        if (hasGlyph) {
-            if (formatU.contains("&#x200D&#x")) {
-                String strN = formatU.replaceAll("&#x200D&#x", "&#x");
-                String strN2 = String.valueOf(Html.fromHtml(strN));
-                String strN1 = String.valueOf(Html.fromHtml(formatU));
-                int nL = strN1.length();
-                int oL = strN2.length();
-                if (nL != oL) {
-                    numValid++;
-                }
-            } else {
-                numValid++;
-            }
+
+        if (validEmoji(formatU)) {
+            numValid++;
         }
-        int numTotal = 4590;
+
         @SuppressLint("DefaultLocale") String percentage = String.format("%.2f", ((double) numValid / numMax) * 100);
         textView2.setText(numValid + " / " + numMax + " = ");
         String strDisplay = formatU.replace("&#x", " ");
@@ -90,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         textView5.setText(percentage + "%");
 
         ProgressBar progressBar = MainActivity.this.findViewById(R.id.progressBar);
-        progressBar.setMax(numTotal);
         progressBar.setProgress(numMax);
 
         progressBar.invalidate();
