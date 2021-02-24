@@ -25,11 +25,11 @@
             android:layout_marginBottom="80dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Emoji支持测试"
+            android:text="Emoji 支持测试"
             android:textSize="30sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
@@ -37,9 +37,9 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:layout_width="96dp"
                 android:layout_height="wrap_content"
-                android:maxWidth="80dp"
+                android:gravity="center"
                 android:maxLines="1"
                 android:text="😀"
                 android:textSize="50sp" />
@@ -90,7 +90,7 @@
             android:layout_marginTop="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="基于Unicode Emoji 13.1"
+            android:text="基于 Unicode Emoji 13.1"
             android:textSize="14sp" />
     </LinearLayout>
 

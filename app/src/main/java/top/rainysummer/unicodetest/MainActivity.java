@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -16,7 +15,7 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int numTotal = 0, numValid = 0;
+    private int numValid = 0, numMax = 0;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -26,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 testUnicode();
+
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -40,19 +40,22 @@ public class MainActivity extends AppCompatActivity {
             if (line.startsWith("#") || line.equals("")) {
                 continue;
             }
-            numTotal++;
             String finalLine = line;
-            runOnUiThread((Runnable) () -> updateUI(finalLine));
+            runOnUiThread(() -> updateUI(finalLine));
+            //noinspection BusyWait
             Thread.sleep(3);
         }
-        TextView textView = (TextView) MainActivity.this.findViewById(R.id.textView);
-        TextView textView3 = (TextView) MainActivity.this.findViewById(R.id.textView3);
-        textView.setText("");
-        textView3.setText("");
+        runOnUiThread(() -> {
+            TextView textView = MainActivity.this.findViewById(R.id.textView);
+            TextView textView3 = MainActivity.this.findViewById(R.id.textView3);
+            textView.setText("");
+            textView3.setText("");
+        });
     }
 
     @SuppressLint("SetTextI18n")
     private void updateUI(String line) {
+        numMax++;
         String formatU = MainActivity.this.formatUnicode(line);
         if (formatU.equals("&#x1F1F9&#x1F1FC")) {
             numValid++;
@@ -60,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
         }
         Paint paint = new Paint();
         boolean hasGlyph = paint.hasGlyph(String.valueOf(Html.fromHtml(formatU)));
-        TextView textView2 = (TextView) MainActivity.this.findViewById(R.id.textView2);
-        TextView textView = (TextView) MainActivity.this.findViewById(R.id.textView);
-        TextView textView3 = (TextView) MainActivity.this.findViewById(R.id.textView3);
-        TextView textView5 = (TextView) MainActivity.this.findViewById(R.id.textView5);
+        TextView textView2 = MainActivity.this.findViewById(R.id.textView2);
+        TextView textView = MainActivity.this.findViewById(R.id.textView);
+        TextView textView3 = MainActivity.this.findViewById(R.id.textView3);
+        TextView textView5 = MainActivity.this.findViewById(R.id.textView5);
         textView.setText(Html.fromHtml(formatU));
         if (hasGlyph) {
             if (formatU.contains("&#x200D&#x")) {
@@ -79,14 +82,16 @@ public class MainActivity extends AppCompatActivity {
                 numValid++;
             }
         }
-        @SuppressLint("DefaultLocale") String percentage = String.format("%.2f", ((double) numValid / numTotal) * 100);
-        textView2.setText(numValid + " / " + numTotal + " = ");
-        textView3.setText(MainActivity.this.formatUnicode(line));
+        int numTotal = 4590;
+        @SuppressLint("DefaultLocale") String percentage = String.format("%.2f", ((double) numValid / numMax) * 100);
+        textView2.setText(numValid + " / " + numMax + " = ");
+        String strDisplay = formatU.replace("&#x", " ");
+        textView3.setText(strDisplay);
         textView5.setText(percentage + "%");
 
-        ProgressBar progressBar = (ProgressBar) MainActivity.this.findViewById(R.id.progressBar);
+        ProgressBar progressBar = MainActivity.this.findViewById(R.id.progressBar);
         progressBar.setMax(numTotal);
-        progressBar.setProgress(numValid);
+        progressBar.setProgress(numMax);
 
         progressBar.invalidate();
         textView.invalidate();
