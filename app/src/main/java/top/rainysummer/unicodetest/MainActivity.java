@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         }
         TextView textView = (TextView) MainActivity.this.findViewById(R.id.textView);
         TextView textView3 = (TextView) MainActivity.this.findViewById(R.id.textView3);
-        textView.setVisibility(View.GONE);
-        textView3.setVisibility(View.GONE);
+        textView.setText("");
+        textView3.setText("");
     }
 
     @SuppressLint("SetTextI18n")
