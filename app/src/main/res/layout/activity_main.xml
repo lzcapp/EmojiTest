@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="50dp"
-            android:max="4590"
+            android:max="3521"
             android:visibility="visible"
             tools:visibility="visible" />
 

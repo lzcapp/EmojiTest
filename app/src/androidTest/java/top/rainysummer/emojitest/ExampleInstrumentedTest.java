@@ -1,4 +1,4 @@
-package top.rainysummer.unicodetest;
+package top.rainysummer.emojitest;
 
 import android.content.Context;
 

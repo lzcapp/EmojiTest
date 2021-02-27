@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         BufferedReader bufReader = new BufferedReader(inputReader);
         String line;
         while ((line = bufReader.readLine()) != null) {
-            if (line.startsWith("#") || line.equals("")) {
+            if (line.startsWith("#") || line.equals("") || line.contains("minimally-qualified") || line.contains("unqualified")) {
                 continue;
             }
             String finalLine = line;
@@ -91,23 +91,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         Paint paint = new Paint();
-        boolean hasGlyph = paint.hasGlyph(String.valueOf(Html.fromHtml(unicode)));
-        if (hasGlyph) {
-            if (unicode.contains("&#x200D&#x")) {
-                String strN = unicode.replaceAll("&#x200D&#x", "&#x");
-                String strN2 = String.valueOf(Html.fromHtml(strN));
-                String strN1 = String.valueOf(Html.fromHtml(unicode));
-                int nL = strN1.length();
-                int oL = strN2.length();
-                //noinspection RedundantIfStatement
-                if (nL != oL) {
-                    return true;
-                }
-            } else {
-                return true;
-            }
-        }
-        return false;
+        String emoji = String.valueOf(Html.fromHtml(unicode, Html.FROM_HTML_MODE_COMPACT));
+        return paint.hasGlyph(emoji);
     }
 
     @SuppressLint("SetTextI18n")
@@ -119,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = MainActivity.this.findViewById(R.id.textView);
         TextView textView3 = MainActivity.this.findViewById(R.id.textView3);
         TextView textView5 = MainActivity.this.findViewById(R.id.textView5);
-        textView.setText(Html.fromHtml(formatU));
+        textView.setText(Html.fromHtml(formatU, Html.FROM_HTML_MODE_COMPACT));
 
         if (validEmoji(formatU)) {
             numValid++;
@@ -146,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         result += line.replaceAll("\\s{2,}", "");
         result = result.replaceAll(";.*", "");
         result = result.replaceAll("\\s", "&#x");
+        result = result.replaceAll("&#x$", "");
         return result;
     }
 }
