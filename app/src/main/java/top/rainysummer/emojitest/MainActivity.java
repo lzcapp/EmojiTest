@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         @SuppressLint("DefaultLocale") String percentage = String.format("%.2f", ((double) numValid / numMax) * 100);
         textView2.setText(numValid + " / " + numMax + " = ");
         String strDisplay = formatU.replace("&#x", " ");
+        strDisplay = strDisplay.replaceFirst(" ", "");
         textView3.setText(strDisplay);
         textView5.setText(percentage + "%");
 
