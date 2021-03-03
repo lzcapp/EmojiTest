@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             String finalLine = line;
             runOnUiThread(() -> updateUI(finalLine));
             //noinspection BusyWait
-            Thread.sleep(3);
+            Thread.sleep(1);
         }
         runOnUiThread(() -> {
             TextView textView = MainActivity.this.findViewById(R.id.textView);

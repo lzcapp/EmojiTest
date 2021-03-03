@@ -10,8 +10,8 @@ android {
         applicationId "top.rainysummer.emojitest"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 10
-        versionName "3.2"
+        versionCode 12
+        versionName "3.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
