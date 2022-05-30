@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Key\\Android\\app_lzc.jks')
+            storePassword 'SATbbLuo19960726481X'
+            keyAlias 'key0'
+            keyPassword 'SATbbLuo19960726481X'
+        }
+    }
     compileSdkVersion 32
     buildToolsVersion '32.1.0-rc1'
 
@@ -10,8 +18,8 @@ android {
         applicationId "app.lzc.emoji"
         minSdkVersion 24
         targetSdkVersion 32
-        versionCode 12
-        versionName "3.4"
+        versionCode 13
+        versionName "3.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
