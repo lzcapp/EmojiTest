@@ -1,4 +1,4 @@
-package top.rainysummer.emojitest;
+package app.lzc.emoji;
 
 import android.annotation.SuppressLint;
 import android.graphics.Paint;
@@ -87,9 +87,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean validEmoji(String unicode) {
-        if (unicode.equals("&#x1F1F9&#x1F1FC")) {
-            return true;
-        }
         Paint paint = new Paint();
         String emoji = String.valueOf(Html.fromHtml(unicode, Html.FROM_HTML_MODE_COMPACT));
         return paint.hasGlyph(emoji);

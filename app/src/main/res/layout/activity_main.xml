@@ -39,7 +39,7 @@
                 android:id="@+id/textView"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
+                android:gravity="end|center_vertical"
                 android:maxLines="1"
                 android:text="😀"
                 android:textSize="60sp" />
@@ -103,7 +103,7 @@
             android:layout_marginTop="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="基于 Unicode Emoji 13.1"
+            android:text="基于 Unicode Emoji 15.0"
             android:textSize="14sp" />
 
     </LinearLayout>
