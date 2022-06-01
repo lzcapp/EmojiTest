@@ -1,6 +1,14 @@
 # UnicodeTest
 
+[![](https://img.shields.io/static/v1?label=Google%20Play&message=app.lzc.emoji&color=blue&style=for-the-badge&logo=googleplay)](https://play.google.com/store/apps/details?id=app.lzc.emoji)&ensp;
+[![GitHub last commit](https://img.shields.io/github/last-commit/lzcapp/EmojiTest?style=for-the-badge)](https://github.com/lzcapp/EmojiTest/releases/latest/)&ensp;
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/lzcapp/EmojiTest?style=for-the-badge)](https://github.com/lzcapp/EmojiTest/releases/latest/)
+
 Package ID has been changed from `top.rainysummer.emojitest` to `app.lzc.emoji`.
+
+## Emoji List
+
+🔗 https://unicode.org/Public/emoji/
 
 ## Screenshots
 
