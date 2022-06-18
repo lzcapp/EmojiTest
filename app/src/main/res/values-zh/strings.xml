@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Emoji 测试</string>
+    <string name="ui_title">Emoji 支持测试</string>
+    <string name="ui_baseon">基于</string>
 </resources>

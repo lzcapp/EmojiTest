@@ -19,14 +19,26 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text=""
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/baseon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="80dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Emoji 支持测试"
-            android:textSize="30sp" />
+            android:text=""
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -61,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="60dp"
             android:max="3521"
             android:visibility="visible"
             tools:visibility="visible" />
@@ -83,28 +95,19 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Hello World!"
-            android:textSize="48sp" />
+            android:textSize="47.5sp" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:visibility="gone" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="基于 Unicode Emoji 15.0"
-            android:textSize="14sp" />
+            android:textSize="24sp"
+            android:visibility="gone" />
+
 
     </LinearLayout>
 

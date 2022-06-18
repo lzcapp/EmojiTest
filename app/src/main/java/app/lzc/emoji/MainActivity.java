@@ -34,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void testUnicode() throws IOException, InterruptedException {
+        TextView title = MainActivity.this.findViewById(R.id.title);
+        title.setText(getString(R.string.ui_title));
+        TextView desc = MainActivity.this.findViewById(R.id.baseon);
+        desc.setText(String.format("%s Unicode Emoji 15.0", getString(R.string.ui_baseon)));
+
         InputStreamReader inputReader = new InputStreamReader(getResources().getAssets().open("emoji-test.txt"));
         BufferedReader bufReader = new BufferedReader(inputReader);
         String line;
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 continue;
             }
             String finalLine = line;
+
             runOnUiThread(() -> updateUI(finalLine));
             //noinspection BusyWait
             Thread.sleep(1);
@@ -49,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
         runOnUiThread(() -> {
             TextView textView = MainActivity.this.findViewById(R.id.textView);
             TextView textView3 = MainActivity.this.findViewById(R.id.textView3);
+            ProgressBar progressBar = MainActivity.this.findViewById(R.id.progressBar);
             textView.setVisibility(View.GONE);
             textView3.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
         });
         checkVersion();
     }
@@ -59,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
     private void checkVersion() {
         runOnUiThread(() -> {
             String version = "";
-            if (validEmoji("&#x1F62E&#x200D&#x1F4A8")) {
+            if (validEmoji("&#x1FAE8")) {
+                version = "15.0";
+            } else if (validEmoji("&#x1FAE0")) {
+                version = "14.0";
+            } else if (validEmoji("&#x1F62E&#x200D&#x1F4A8")) {
                 version = "13.1";
             } else if (validEmoji("&#x1F972")) {
                 version = "13.0";
@@ -78,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (validEmoji("&#x1F441")) {
                 version = "2.0";
             } else if (validEmoji("&#x1F600")) {
-                version = "2.0";
+                version = "1.0";
             }
             TextView textView4 = MainActivity.this.findViewById(R.id.textView4);
             textView4.setVisibility(View.VISIBLE);

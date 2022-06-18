@@ -11,15 +11,15 @@ android {
             keyPassword 'SATbbLuo19960726481X'
         }
     }
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion '32.1.0-rc1'
 
     defaultConfig {
         applicationId "app.lzc.emoji"
         minSdkVersion 24
-        targetSdkVersion 32
-        versionCode 13
-        versionName "3.5"
+        targetSdkVersion 33
+        versionCode 14
+        versionName "3.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,8 +39,8 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
