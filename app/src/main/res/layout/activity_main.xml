@@ -23,22 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="70dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text=""
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/baseon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="80dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text=""
-            android:textSize="14sp" />
+            android:textSize="34sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -53,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="end|center_vertical"
                 android:maxLines="1"
-                android:text="😀"
                 android:textSize="60sp" />
 
             <TextView
@@ -63,7 +51,6 @@
                 android:layout_marginStart="30dp"
                 android:layout_weight="1"
                 android:maxLines="3"
-                android:text="Hello World!"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -83,8 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Hello World!"
-            android:textSize="24sp" />
+            android:textSize="28sp" />
 
         <TextView
             android:id="@+id/textView5"
@@ -94,8 +80,7 @@
             android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Hello World!"
-            android:textSize="47.5sp" />
+            android:textSize="48sp" />
 
         <TextView
             android:id="@+id/textView4"
@@ -105,10 +90,8 @@
             android:layout_marginTop="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:visibility="gone" />
-
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,5 +2,4 @@
 <resources>
     <string name="app_name">Emoji Test</string>
     <string name="ui_title">Emoji Test</string>
-    <string name="ui_baseon">Base on</string>
 </resources>

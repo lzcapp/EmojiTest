@@ -11,8 +11,15 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView title = MainActivity.this.findViewById(R.id.title);
+        title.setText(getString(R.string.ui_title));
         new Thread(() -> {
             try {
                 testUnicode();
@@ -34,12 +43,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void testUnicode() throws IOException, InterruptedException {
-        TextView title = MainActivity.this.findViewById(R.id.title);
-        title.setText(getString(R.string.ui_title));
-        TextView desc = MainActivity.this.findViewById(R.id.baseon);
-        desc.setText(String.format("%s Unicode Emoji 15.0", getString(R.string.ui_baseon)));
+        File path = getApplication().getFilesDir();
+        try {
+            URL urlVersion = new URL("https://app.lzc.app/emoji/version");
+            HttpURLConnection connect = (HttpURLConnection) urlVersion.openConnection();
+            InputStream input = connect.getInputStream();
+            BufferedReader in = new BufferedReader(new InputStreamReader(input));
+            String line;
+            System.out.println(connect.getResponseCode());
+            StringBuilder sb = new StringBuilder();
+            while ((line = in.readLine()) != null) {
+                sb.append(line);
+            }
+            String version = sb.toString();
 
-        InputStreamReader inputReader = new InputStreamReader(getResources().getAssets().open("emoji-test.txt"));
+            if (Double.parseDouble(version) > 14.0) {
+                URL url = new URL("https://app.lzc.app/emoji/emoji-test.txt");
+                URLConnection connection = url.openConnection();
+                connection.connect();
+                InputStream is = connection.getInputStream();
+                FileOutputStream fos = new FileOutputStream(path + "/" + "emoji-test.txt");
+                byte[] buffer = new byte[1024];
+                do {
+                    int len = is.read(buffer);
+                    if (len == -1) {
+                        break;
+                    }
+                    fos.write(buffer, 0, len);
+                } while (true);
+                is.close();
+                fos.close();
+            }
+        } catch (Exception ignored) {
+
+        }
+
+        InputStreamReader inputReader;
+        File file = new File(path + "/" + "emoji-test.txt");
+        if (file.exists()) {
+            inputReader = new InputStreamReader(new FileInputStream(file));
+        } else {
+            inputReader = new InputStreamReader(getResources().getAssets().open("emoji-test.txt"));
+        }
+
+
         BufferedReader bufReader = new BufferedReader(inputReader);
         String line;
         while ((line = bufReader.readLine()) != null) {
@@ -94,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             }
             TextView textView4 = MainActivity.this.findViewById(R.id.textView4);
             textView4.setVisibility(View.VISIBLE);
-            textView4.setText("≈ Emoji " + version);
+            textView4.setText("≈  Emoji " + version);
         });
     }
 
