@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         InputStreamReader inputReader;
         File file = new File(path + "/" + "emoji-test.txt");
         if (file.exists()) {
+            //noinspection IOStreamConstructor
             inputReader = new InputStreamReader(new FileInputStream(file));
         } else {
             inputReader = new InputStreamReader(getResources().getAssets().open("emoji-test.txt"));
