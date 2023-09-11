@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void testUnicode() throws IOException, InterruptedException {
         File path = getApplication().getFilesDir();
+        String version = "";
         try {
             URL urlVersion = new URL("https://app.lzc.app/emoji/version");
             HttpURLConnection connect = (HttpURLConnection) urlVersion.openConnection();
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             while ((line = in.readLine()) != null) {
                 sb.append(line);
             }
-            String version = sb.toString();
+            version = sb.toString();
 
             if (Double.parseDouble(version) > 14.0) {
                 URL url = new URL("https://app.lzc.app/emoji/emoji-test.txt");
@@ -75,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 fos.close();
             }
         } catch (Exception ignored) {
-
         }
 
         InputStreamReader inputReader;
@@ -107,11 +107,11 @@ public class MainActivity extends AppCompatActivity {
             textView3.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
         });
-        checkVersion();
+        checkVersion(version);
     }
 
     @SuppressLint("SetTextI18n")
-    private void checkVersion() {
+    private void checkVersion(String latest) {
         runOnUiThread(() -> {
             String version = "";
             if (validEmoji("&#x1FAE8")) {
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             }
             TextView textView4 = MainActivity.this.findViewById(R.id.textView4);
             textView4.setVisibility(View.VISIBLE);
-            textView4.setText("≈  Emoji " + version);
+            textView4.setText("≈  Emoji " + version + "/" + latest);
         });
     }
 
