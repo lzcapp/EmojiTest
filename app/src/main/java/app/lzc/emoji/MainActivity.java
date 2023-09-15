@@ -10,16 +10,22 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Iterator;
+import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,8 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 is.close();
                 fos.close();
             }
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
 
         InputStreamReader inputReader;
         File file = new File(path + "/" + "emoji-test.txt");
@@ -114,32 +119,40 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void checkVersion(String latest) {
         runOnUiThread(() -> {
+            String emoji = "";
+            TreeMap<String, String> map = new TreeMap<>();
+            try {
+                URL url = new URL("https://app.lzc.app/emoji/emoji.txt");
+                URLConnection connection = url.openConnection();
+                connection.connect();
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+                br.close();
+                emoji = sb.toString();
+
+                JSONObject jobj = new JSONObject(emoji);
+                Iterator<String> keys = jobj.keys();
+                while(keys.hasNext()) {
+                    String key = keys.next();
+                    String value = jobj.get(key).toString();
+                    map.put(key, value);
+                }
+            } catch (Exception ignored) {}
+
             String version = "";
-            if (validEmoji("&#x1FAE8")) {
-                version = "15.0";
-            } else if (validEmoji("&#x1FAE0")) {
-                version = "14.0";
-            } else if (validEmoji("&#x1F62E&#x200D&#x1F4A8")) {
-                version = "13.1";
-            } else if (validEmoji("&#x1F972")) {
-                version = "13.0";
-            } else if (validEmoji("&#x1F9D1&#x200D&#x1F9B0")) {
-                version = "12.1";
-            } else if (validEmoji("&#x1F971")) {
-                version = "12.0";
-            } else if (validEmoji("&#x1F970")) {
-                version = "11.0";
-            } else if (validEmoji("&#x1F929")) {
-                version = "5.0";
-            } else if (validEmoji("&#x1F471")) {
-                version = "4.0";
-            } else if (validEmoji("&#x1F923")) {
-                version = "3.0";
-            } else if (validEmoji("&#x1F441")) {
-                version = "2.0";
-            } else if (validEmoji("&#x1F600")) {
-                version = "1.0";
+            for (TreeMap.Entry<String, String> entry : map.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                if (validEmoji(value)) {
+                    version = key;
+                    break;
+                }
             }
+
             TextView textView4 = MainActivity.this.findViewById(R.id.textView4);
             textView4.setVisibility(View.VISIBLE);
             textView4.setText("≈  Emoji " + version + "/" + latest);
