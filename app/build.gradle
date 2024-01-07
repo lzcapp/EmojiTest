@@ -3,29 +3,21 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        release {
-            storeFile file('C:\\Key\\Android\\app_lzc.jks')
-            storePassword 'SATbbLuo19960726481X'
-            keyAlias 'key0'
-            keyPassword 'SATbbLuo19960726481X'
-        }
-    }
     compileSdk 34
 
     defaultConfig {
         applicationId "app.lzc.emoji"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 34
         versionCode 15
         versionName "3.7"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
