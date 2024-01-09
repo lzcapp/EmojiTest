@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -126,11 +127,9 @@ public class MainActivity extends AppCompatActivity {
             Thread.sleep(1);
         }
         runOnUiThread(() -> {
-            TextView textView = MainActivity.this.findViewById(R.id.emojiTextView);
-            TextView textView3 = MainActivity.this.findViewById(R.id.codeTextView);
+            LinearLayout emojiLinearLayout = MainActivity.this.findViewById(R.id.emojiLinearLayout);
             ProgressBar progressBar = MainActivity.this.findViewById(R.id.progressBar);
-            textView.setVisibility(View.GONE);
-            textView3.setVisibility(View.GONE);
+            emojiLinearLayout.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
 
             String emojiVersion = "";

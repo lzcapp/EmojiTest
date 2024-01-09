@@ -38,7 +38,7 @@
                     android:layout_width="165dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="20px"
+                    android:layout_marginEnd="10px"
                     android:layout_weight="5"
                     android:gravity="center_vertical|end"
                     android:text="Emoji Test"
@@ -51,7 +51,7 @@
                     android:layout_gravity="bottom|end"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
-                    android:gravity="bottom|start"
+                    android:gravity="start|top"
                     android:text="X.Y"
                     android:textSize="20sp" />
 
@@ -65,11 +65,13 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="5"
                 android:gravity="center"
-                android:text="©LZC.app"
-                android:textSize="20sp" />
+                android:text="© LZC.app"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/emojiLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="center"
@@ -103,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="70dp"
             android:max="3521"
             android:visibility="visible"
             tools:visibility="visible" />
@@ -116,7 +118,7 @@
             android:justificationMode="inter_word"
             android:text="3664 / 3664 ="
             android:textAlignment="center"
-            android:textSize="28sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/percentTextView"
@@ -125,21 +127,22 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="100%"
             android:justificationMode="inter_word"
+            android:text="100%"
             android:textAlignment="center"
-            android:textSize="48sp" />
+            android:textSize="38sp" />
 
         <TextView
             android:id="@+id/resultTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:gravity="center"
+            android:text="≈ Emoji 15.0 / 15.0"
             android:textAlignment="center"
-            android:textSize="30sp"
-            android:visibility="gone" />
+            android:textSize="24sp"
+            android:visibility="invisible" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
