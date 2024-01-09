@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/gra"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -21,31 +20,52 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginBottom="150px"
+            android:layout_marginBottom="60dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="0px"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="20px"
-                android:layout_weight="2"
-                android:gravity="center_vertical|end"
-                android:text=""
-                android:textSize="34sp" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="20px"
+                    android:layout_weight="5"
+                    android:gravity="center_vertical|end"
+                    android:text="Emoji Test"
+                    android:textSize="34sp" />
+
+                <TextView
+                    android:id="@+id/versionTextView"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom|start"
+                    android:text="X.Y"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/textView6"
-                android:layout_width="0px"
+                android:id="@+id/versionTextView"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="bottom|end"
-                android:layout_marginStart="10px"
-                android:layout_weight="1"
-                android:gravity="bottom|start"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="©LZC.app"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -58,23 +78,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="30px"
-                android:layout_weight="1"
-                android:gravity="end|center_vertical"
+                android:id="@+id/emojiTextView"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:maxLines="1"
+                android:text="☄"
                 android:textSize="60sp" />
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="30px"
-                android:layout_weight="1"
+                android:id="@+id/codeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:gravity="start|center_vertical"
                 android:maxLines="4"
+                android:text="1FAF1 1F3FD 200D 1FAF2 1F3FC"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -90,25 +109,29 @@
             tools:visibility="visible" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:id="@+id/countTextView"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:justificationMode="inter_word"
+            android:text="3664 / 3664 ="
             android:textAlignment="center"
             android:textSize="28sp" />
 
         <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
+            android:id="@+id/percentTextView"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:gravity="center"
+            android:text="100%"
+            android:justificationMode="inter_word"
             android:textAlignment="center"
             android:textSize="48sp" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/resultTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

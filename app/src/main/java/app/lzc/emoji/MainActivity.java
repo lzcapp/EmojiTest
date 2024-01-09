@@ -32,8 +32,6 @@ import java.util.Iterator;
 public class MainActivity extends AppCompatActivity {
     private String currentVersion;
 
-    private ArrayList<String[]> map;
-
     private int numValid = 0, numMax = 0;
 
     @SuppressLint("SetTextI18n")
@@ -41,21 +39,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView title = MainActivity.this.findViewById(R.id.title);
-        title.setText(getString(R.string.ui_title));
         PackageInfo packageInfo;
         try {
             packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
             throw new RuntimeException(e);
         }
-        TextView appver = MainActivity.this.findViewById(R.id.textView6);
-        appver.setText(packageInfo.versionName);
+        TextView titleTextView = MainActivity.this.findViewById(R.id.titleTextView);
+        titleTextView.setText(getResources().getString(R.string.app_name));
+        TextView versionTextView = MainActivity.this.findViewById(R.id.versionTextView);
+        versionTextView.setText(packageInfo.versionName);
         new Thread(() -> {
             try {
                 testUnicode();
             } catch (IOException | InterruptedException | JSONException e) {
-                //e.printStackTrace();
                 Log.e("Error", e.toString());
             }
         }).start();
@@ -129,14 +126,12 @@ public class MainActivity extends AppCompatActivity {
             Thread.sleep(1);
         }
         runOnUiThread(() -> {
-            TextView textView = MainActivity.this.findViewById(R.id.textView);
-            TextView textView3 = MainActivity.this.findViewById(R.id.textView3);
+            TextView textView = MainActivity.this.findViewById(R.id.emojiTextView);
+            TextView textView3 = MainActivity.this.findViewById(R.id.codeTextView);
             ProgressBar progressBar = MainActivity.this.findViewById(R.id.progressBar);
             textView.setVisibility(View.GONE);
             textView3.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
-
-            String emoji;
 
             String emojiVersion = "";
             for (String[] entry : map) {
@@ -148,9 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            TextView textView4 = MainActivity.this.findViewById(R.id.textView4);
+            TextView textView4 = MainActivity.this.findViewById(R.id.resultTextView);
             textView4.setVisibility(View.VISIBLE);
-            textView4.setText("≈  Emoji " + emojiVersion + "/" + currentVersion);
+            textView4.setText("≈  Emoji " + emojiVersion + " / " + currentVersion);
         });
     }
 
@@ -165,10 +160,10 @@ public class MainActivity extends AppCompatActivity {
         numMax++;
         String formatU = MainActivity.this.formatUnicode(line);
 
-        TextView textView2 = MainActivity.this.findViewById(R.id.textView2);
-        TextView textView = MainActivity.this.findViewById(R.id.textView);
-        TextView textView3 = MainActivity.this.findViewById(R.id.textView3);
-        TextView textView5 = MainActivity.this.findViewById(R.id.textView5);
+        TextView textView2 = MainActivity.this.findViewById(R.id.countTextView);
+        TextView textView = MainActivity.this.findViewById(R.id.emojiTextView);
+        TextView textView3 = MainActivity.this.findViewById(R.id.codeTextView);
+        TextView textView5 = MainActivity.this.findViewById(R.id.percentTextView);
         textView.setText(Html.fromHtml(formatU, Html.FROM_HTML_MODE_COMPACT));
 
         if (validEmoji(formatU)) {
