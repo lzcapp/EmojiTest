@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         }
         currentVersion = sbVersion.toString();
 
-        URL urlEmojiTest = new URL("https://app.lzc.app/emoji/emoji-test.txt");
+        URL urlEmojiTest = new URL("https://www.unicode.org/Public/emoji/latest/emoji-test.txt");
         URLConnection connection = urlEmojiTest.openConnection();
         connection.connect();
         InputStream is = connection.getInputStream();
