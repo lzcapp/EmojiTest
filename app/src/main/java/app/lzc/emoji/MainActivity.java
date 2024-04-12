@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private void testUnicode() throws IOException, InterruptedException, JSONException {
         File path = getApplication().getFilesDir();
 
-        URL urlVersion = new URL("https://app.lzc.app/emoji/version");
+        URL urlVersion = new URL("https://app.seeleo.com/emoji/version");
         HttpURLConnection connect = (HttpURLConnection) urlVersion.openConnection();
         InputStream input = connect.getInputStream();
         BufferedReader in = new BufferedReader(new InputStreamReader(input));
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         }
         currentVersion = sbVersion.toString();
 
-        URL urlEmojiTest = new URL("https://www.unicode.org/Public/emoji/latest/emoji-test.txt");
+        URL urlEmojiTest = new URL("https://app.seeleo.com/emoji/emoji-test.txt");
         URLConnection connection = urlEmojiTest.openConnection();
         connection.connect();
         InputStream is = connection.getInputStream();
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         fos.close();
 
         ArrayList<String[]> map = new ArrayList<>();
-        URL url = new URL("https://app.lzc.app/emoji/emoji.txt");
+        URL url = new URL("https://app.seeleo.com/emoji/emoji.txt");
         URLConnection connectionE = url.openConnection();
         connectionE.connect();
         BufferedReader br = new BufferedReader(new InputStreamReader(connectionE.getInputStream()));

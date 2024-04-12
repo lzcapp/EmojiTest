@@ -58,7 +58,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/versionTextView"
+                android:id="@+id/copyrightTextView"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
