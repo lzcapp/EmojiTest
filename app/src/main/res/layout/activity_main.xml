@@ -7,108 +7,128 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="60dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/titleTextView"
-                    android:layout_width="165dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="10px"
-                    android:layout_weight="5"
-                    android:gravity="center_vertical|end"
-                    android:text="Emoji Test"
-                    android:textSize="34sp" />
-
-                <TextView
-                    android:id="@+id/versionTextView"
-                    android:layout_width="35dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom|end"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:gravity="start|top"
-                    android:text="X.Y"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/copyrightTextView"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_weight="5"
-                android:gravity="center"
-                android:text="© LZC.app"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/emojiLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/emojiTextView"
-                android:layout_width="90dp"
+                android:id="@+id/titleTextView"
+                android:layout_width="165dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="☄"
-                android:textSize="60sp" />
+                android:layout_gravity="center"
+                android:layout_marginEnd="10px"
+                android:layout_weight="5"
+                android:gravity="center_vertical|end"
+                android:text="Emoji Test"
+                android:textSize="34sp" />
 
             <TextView
-                android:id="@+id/codeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:gravity="start|center_vertical"
-                android:maxLines="4"
-                android:text="1FAF1 1F3FD 200D 1FAF2 1F3FC"
+                android:id="@+id/versionTextView"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom|end"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:gravity="start|top"
+                android:text="X.Y"
                 android:textSize="20sp" />
+
         </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@android:style/Widget.Material.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/copyrightTextView"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="70dp"
-            android:max="3521"
-            android:visibility="visible"
-            tools:visibility="visible" />
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:text="© LZC.app"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/emojiLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="64dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/emojiTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:gravity="right"
+            android:maxLines="1"
+            android:text="☄"
+            android:textSize="60sp" />
+
+        <TextView
+            android:id="@+id/codeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="5"
+            android:gravity="start|center_vertical"
+            android:maxLines="4"
+            android:text="1FAF1 1F3FD 200D 1FAF2 1F3FC"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.Material.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:max="3521"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="64dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TextView
             android:id="@+id/countTextView"
