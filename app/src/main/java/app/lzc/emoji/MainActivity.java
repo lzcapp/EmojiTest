@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
             runOnUiThread(() -> updateUI(finalLine));
             //noinspection BusyWait
-            Thread.sleep(1);
+            Thread.sleep(10);
         }
         runOnUiThread(() -> {
             LinearLayout emojiLinearLayout = MainActivity.this.findViewById(R.id.emojiLinearLayout);
