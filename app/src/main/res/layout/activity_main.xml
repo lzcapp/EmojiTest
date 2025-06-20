@@ -88,9 +88,9 @@
             <TextView
                 android:id="@+id/emojiTextView"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="4"
-                android:gravity="right"
+                android:gravity="right|center_vertical"
                 android:maxLines="1"
                 android:text="☄"
                 android:textSize="60sp" />
@@ -98,12 +98,12 @@
             <TextView
                 android:id="@+id/codeTextView"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="5"
                 android:gravity="start|center_vertical"
-                android:maxLines="4"
+                android:minLines="3"
                 android:text="1FAF1 1F3FD 200D 1FAF2 1F3FC"
                 android:textSize="20sp" />
         </LinearLayout>
