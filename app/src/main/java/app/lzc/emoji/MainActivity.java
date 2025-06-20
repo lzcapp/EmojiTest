@@ -73,18 +73,20 @@ public class MainActivity extends AppCompatActivity {
     static {
         // Initialize the list of emojis and their introduction versions.
         // These are carefully chosen as representative for their respective versions.
-        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("16.0", "1FAE9")); // Alembic
-        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("15.1", "1F90F")); // Ginger Root
-        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("15.0", "1FA7B")); // Jellyfish
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("17.0", "1FAEA")); // Distorted Face
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("16.0", "1FAE9")); // Face with Bags Under Eyes
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("15.1", "1F642 200D 2194 FE0F")); // Head Shaking Horizontally
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("15.0", "1FAE8")); // Shaking Face
         EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("14.0", "1FAE0")); // Melting Face
-        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("13.1", "1F9D1 200D 2764 FE0F 200D 1F9D1")); // Couple with Heart: Person, Person
-        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("13.0", "1FA72")); // Bubble Tea
-        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("12.0", "1F97A")); // Woozy Face
-        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("11.0", "1F973")); // Partying Face
-        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("5.0", "1F9D0"));  // Face with Monocle
-        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("4.0", "1F926"));  // Face with Palm Over Mouth
-        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("3.0", "1F918"));  // Sign of the Horns
-        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("2.0", "1F914"));  // Thinking Face
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("13.1", "1F636 200D 1F32B FE0F")); // Face in Clouds
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("13.0", "1F972")); // Smiling Face with Tear
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("12.1", "1F9D1 200D 1F9B0")); // Person: Red Hair
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("12.0", "1F971")); // Yawning Face
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("11.0", "1F970")); // Smiling Face with Hearts
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("5.0", "1F929"));  // Star-Struck
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("4.0", "1F471 200D 2640 FE0F"));  // Woman: Blond Hair
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("3.0", "1F923"));  // Rolling on the Floor Laughing
+        EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("2.0", "1F441 FE0F 200D 1F5E8 FE0F"));  // Eye in Speech Bubble
         EMOJI_VERSIONS_TO_TEST.add(new EmojiVersionInfo("1.0", "1F600"));  // Grinning Face
 
         // Sort the list in descending order of version to find the highest supported version first.
@@ -213,8 +215,12 @@ public class MainActivity extends AppCompatActivity {
         } finally {
             // Ensure streams and connections are closed after network attempt
             try {
-                if (inputStream != null) inputStream.close();
-                if (fileOutputStream != null) fileOutputStream.close();
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (fileOutputStream != null) {
+                    fileOutputStream.close();
+                }
             } catch (IOException e) {
                 Log.e(TAG, "Error closing streams after network attempt: " + e.getMessage());
             }
@@ -241,8 +247,12 @@ public class MainActivity extends AppCompatActivity {
             } finally {
                 // Ensure streams are closed after asset attempt
                 try {
-                    if (inputStream != null) inputStream.close();
-                    if (fileOutputStream != null) fileOutputStream.close();
+                    if (inputStream != null) {
+                        inputStream.close();
+                    }
+                    if (fileOutputStream != null) {
+                        fileOutputStream.close();
+                    }
                 } catch (IOException e) {
                     Log.e(TAG, "Error closing streams after asset attempt: " + e.getMessage());
                 }
@@ -382,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
         // Display the Unicode standard emoji version, the device supported version,
         // and the percentage of supported emojis from the loaded test file.
         resultTextView.setText(
-                "Latest Emoji Version: " + latestUnicodeEmojiVersion + "\n" +
+                "Latest Emoji Version: " + latestUnicodeEmojiVersion + "\n\n" +
                         "Device Supported: " + "\n" +
                         numValid + " / " + numMax + " (" + supportedPercentage + "%)" + "\n" +
                         "≈ Emoji " + deviceSupportedEmojiVersion
