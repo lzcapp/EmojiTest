@@ -23,9 +23,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
@@ -112,8 +114,12 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < length; i++) {
             int p1 = i < parts1.length ? Integer.parseInt(parts1[i]) : 0;
             int p2 = i < parts2.length ? Integer.parseInt(parts2[i]) : 0;
-            if (p1 < p2) return -1;
-            if (p1 > p2) return 1;
+            if (p1 < p2) {
+                return -1;
+            }
+            if (p1 > p2) {
+                return 1;
+            }
         }
         return 0;
     }
@@ -224,7 +230,9 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 Log.e(TAG, "Error closing streams after network attempt: " + e.getMessage());
             }
-            if (connection != null) connection.disconnect();
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
 
         // --- If network download failed, attempt to load from assets ---
@@ -288,27 +296,43 @@ public class MainActivity extends AppCompatActivity {
     private void processEmojiTestFile(File emojiTestFile) {
         BufferedReader bufReader = null;
         try {
-            bufReader = new BufferedReader(new InputStreamReader(new java.io.FileInputStream(emojiTestFile)));
+            bufReader = new BufferedReader(new InputStreamReader(Files.newInputStream(emojiTestFile.toPath())));
             String line;
+            List<String> linesToProcess = new ArrayList<>(); // Renamed from 'lines' to avoid confusion with parameter 'line'
             while ((line = bufReader.readLine()) != null) {
                 // Filter out comments, empty lines, and specific test types
                 if (line.startsWith("#") || line.trim().isEmpty() || line.contains("minimally-qualified") || line.contains("unqualified")) {
                     continue;
                 }
-                String finalLine = line;
-                runOnUiThread(() -> updateUI(finalLine));
-                try {
-                    // This sleep is problematic. For a real app, consider a more efficient way
-                    // to display progress without blocking the thread or making it slow.
-                    // For example, update the UI less frequently or process multiple lines at once.
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt(); // Restore the interrupted status
-                    Log.w(TAG, "Emoji test processing interrupted: " + e.getMessage());
-                    break; // Exit loop if interrupted
+                linesToProcess.add(line);
+            }
+
+            // Reset counters for a fresh run
+            numValid = 0;
+            numMax = 0;
+
+            // Set max for progress bar once on the UI thread
+            runOnUiThread(() -> progressBar.setMax(linesToProcess.size()));
+
+            long lastUpdateTime = System.currentTimeMillis();
+            final long UPDATE_INTERVAL_MS = 50; // Update UI every 50 milliseconds or so
+
+            for (String currentLine : linesToProcess) {
+                String formattedUnicode = formatUnicode(currentLine);
+                numMax++; // Increment numMax for each processed line
+
+                if (validEmoji(formattedUnicode)) {
+                    numValid++;
+                }
+
+                // Update UI periodically based on time or when all lines are processed
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - lastUpdateTime > UPDATE_INTERVAL_MS || numMax == linesToProcess.size()) {
+                    runOnUiThread(() -> updateProgressDisplay(numValid, numMax, formattedUnicode));
+                    lastUpdateTime = currentTime;
                 }
             }
-            runOnUiThread(this::finalizeUI);
+            runOnUiThread(this::finalizeUI); // Finalize UI after all processing
         } catch (IOException e) {
             Log.e(TAG, "Error reading emoji test file: " + e.getMessage(), e);
             runOnUiThread(() -> Toast.makeText(MainActivity.this, "Error reading emoji test file.", Toast.LENGTH_LONG).show());
@@ -338,31 +362,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Updates the UI with the progress of the emoji test.
-     * This method runs on the UI thread.
-     * @param line The current line from the emoji test file being processed.
+     * Updates the UI with the current progress of the emoji test.
+     * This method runs on the UI thread and is called periodically from the background thread.
+     * @param currentValid The number of valid emojis found so far.
+     * @param currentMax The total number of emojis processed so far.
+     * @param lastFormattedUnicode The formatted Unicode string of the last emoji processed.
      */
     @SuppressLint("SetTextI18n")
-    private void updateUI(String line) {
-        numMax++;
-        String formattedUnicode = formatUnicode(line);
-
-        emojiTextView.setText(Html.fromHtml(formattedUnicode, Html.FROM_HTML_MODE_COMPACT));
-
-        if (validEmoji(formattedUnicode)) {
-            numValid++;
-        }
-
-        @SuppressLint("DefaultLocale")
-        String percentage = String.format("%.2f", ((double) numValid / numMax) * 100);
-        countTextView.setText(numValid + " / " + numMax + " = ");
-
-        // Clean up the string for display in codeTextView
-        String strDisplay = formattedUnicode.replace("&#x", " ").trim();
+    private void updateProgressDisplay(int currentValid, int currentMax, String lastFormattedUnicode) {
+        // Update the current emoji and its code that is being tested
+        emojiTextView.setText(Html.fromHtml(lastFormattedUnicode, Html.FROM_HTML_MODE_COMPACT));
+        String strDisplay = lastFormattedUnicode.replace("&#x", " ").trim();
         codeTextView.setText(strDisplay);
+
+        // Update counts and percentage
+        @SuppressLint("DefaultLocale")
+        String percentage = String.format("%.2f", ((double) currentValid / currentMax) * 100);
+        countTextView.setText(currentValid + " / " + currentMax + " = ");
         percentTextView.setText(percentage + "%");
 
-        progressBar.setProgress(numMax);
+        // Update the progress bar
+        progressBar.setProgress(currentMax);
     }
 
     /**
@@ -378,6 +398,7 @@ public class MainActivity extends AppCompatActivity {
         String deviceSupportedEmojiVersion = "Unknown";
         for (EmojiVersionInfo info : EMOJI_VERSIONS_TO_TEST) {
             String formattedEmoji = formatUnicode(info.unicodeCodepoints);
+            // Log.d(TAG, "Checking emoji version " + info.version + " with emoji: " + formattedEmoji); // Debugging
             if (validEmoji(formattedEmoji)) {
                 deviceSupportedEmojiVersion = info.version;
                 break; // Found the highest supported version
@@ -392,8 +413,8 @@ public class MainActivity extends AppCompatActivity {
         // Display the Unicode standard emoji version, the device supported version,
         // and the percentage of supported emojis from the loaded test file.
         resultTextView.setText(
-                "Latest Emoji Version: " + latestUnicodeEmojiVersion + "\n\n" +
-                        "Device Supported: " + "\n" +
+                "Latest Emoji: \n" + latestUnicodeEmojiVersion + "\n\n" +
+                        "Device Supported: \n" +
                         numValid + " / " + numMax + " (" + supportedPercentage + "%)" + "\n" +
                         "≈ Emoji " + deviceSupportedEmojiVersion
         );
